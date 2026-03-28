@@ -80,6 +80,8 @@ def compute_inter_class_overlap(embeddings, labels):
     stats = {}
     for cls in classes:
         cls_emb = embeddings[labels == cls]
+        if len(cls_emb) < 2:
+            continue
         stats[cls] = {
             "mu": np.mean(cls_emb, axis=0),
             "sigma": np.cov(cls_emb, rowvar=False)
@@ -88,6 +90,10 @@ def compute_inter_class_overlap(embeddings, labels):
     for i, c1 in enumerate(classes):
         for j, c2 in enumerate(classes):
             if i >= j:
+                continue
+            emb1 = embeddings[labels == c1]
+            emb2 = embeddings[labels == c2]
+            if len(emb1) < 2 or len(emb2) < 2:
                 continue
             dist = frechet_distance(stats[c1]["mu"], stats[c1]["sigma"],
                                     stats[c2]["mu"], stats[c2]["sigma"])
