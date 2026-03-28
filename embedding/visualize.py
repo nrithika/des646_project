@@ -147,9 +147,9 @@ def plot_embedding_scatter(
             title=title,
         )
 
-        fig.update_traces(marker=dict(opacity=0.8, line=dict(width=0)))
-        fig.update_layout(template="plotly_white")
-        return fig
+    fig.update_traces(marker=dict(opacity=0.8, line=dict(width=0)))
+    fig.update_layout(template="plotly_white")
+    return fig
 
 
 # Similarity Heatmap
